@@ -55,7 +55,7 @@ bash scripts/run_ner.sh English-TEST --max_steps 1000 --word_emb_dim 5
 
 ```python
 >>> import stanza
->>> nlp = stanza.Pipeline(lang='en', processors='tokenize,pos', tokenize_model_path='...', pos_model_path='...')
+>>> nlp = stanza.Pipeline(lang='en', processors='tokenize', tokenize_model_path='saved_models/tokenize/en_test_tokenizer.pt')
 ```
 
 
