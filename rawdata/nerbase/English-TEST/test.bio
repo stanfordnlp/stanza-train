@@ -1,0 +1,15 @@
+Barack	I-PER
+Obama	I-PER
+was	O
+born	O
+in	O
+Hawaii	I-LOC
+.	O
+
+He	O
+was	O
+elected	O 
+president	O
+in	O
+2008	O
+.	O
