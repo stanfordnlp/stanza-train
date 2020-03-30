@@ -51,6 +51,15 @@ bash scripts/run_depparse.sh UD_English-TEST gold --max_steps 1000
 bash scripts/run_ner.sh English-TEST --max_steps 1000 --word_emb_dim 5
 ```
 
+#### NER with CharLM
+
+##### CharLM
+
+```sh
+bash scripts/run_charlm.sh English-TEST forward --epochs 2 --cutoff 0 --batch_size 2
+bash scripts/run_charlm.sh English-TEST backward --epochs 2 --cutoff 0 --batch_size 2
+```
+
 ## Load Trained Processors
 
 ```python
