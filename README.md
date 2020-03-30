@@ -9,7 +9,7 @@ git clone git@github.com:yuhui-zh15/stanza-train.git
 cd stanza-train
 git clone git@github.com:stanfordnlp/stanza.git
 cp config/config.sh stanza/scripts/config.sh
-cp config/xpos_vocab_factory.py stanza/models/pos/xpos_vocab_factory.py
+cp config/xpos_vocab_factory.py stanza/stanza/models/pos/xpos_vocab_factory.py
 cd stanza
 ```
 
