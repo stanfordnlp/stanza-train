@@ -1,5 +1,7 @@
 # Stanza Training Tutorial
 
+> Warning: only support Linux.
+
 ## Set up Environment
 
 ```sh
