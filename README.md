@@ -9,7 +9,7 @@ git clone git@github.com:yuhui-zh15/stanza-train.git
 cd stanza-train
 git clone git@github.com:stanfordnlp/stanza.git
 cp config/config.sh stanza/scripts/config.sh
-cp config/xpos_vocab_factory.py stanza/models/pos/xpos_vocab_factory.py
+cp config/xpos_vocab_factory.py stanza/stanza/models/pos/xpos_vocab_factory.py
 cd stanza
 ```
 
@@ -55,7 +55,7 @@ bash scripts/run_ner.sh English-TEST --max_steps 1000 --word_emb_dim 5
 
 ```python
 >>> import stanza
->>> nlp = stanza.Pipeline(lang='en', processors='tokenize,pos', tokenize_model_path='...', pos_model_path='...')
+>>> nlp = stanza.Pipeline(lang='en', processors='tokenize', tokenize_model_path='saved_models/tokenize/en_test_tokenizer.pt')
 ```
 
 
