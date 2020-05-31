@@ -49,11 +49,11 @@ The Universal Dependencies grammar defines syntatic relations between [syntactic
 
 Like the `tokenize` processor, training the `mwt` processor requires UD data, in the format like our provided toy examples [here](data/udbase/UD_English-TEST). You can run the following command to train the `mwt` processor:
 
-> Note: Our provided toy data is in English, which do not contain MWT, you should replace provided data with data in languages that contain MWT (e.g., German, French, etc.) to train `mwt` processor.
-
 ```sh
 bash scripts/run_mwt.sh UD_English-TEST --num_epoch 2
 ```
+
+> Note: Running the above command with the toy data will yield a message saying that zero training data can be found for MWT training. This is normal since MWT is not needed for English. The training should work when you replace the provided data with data in languages that support MWT (e.g., German, French, etc.).
 
 #### `lemma`
 
