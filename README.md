@@ -20,6 +20,10 @@ cp config/xpos_vocab_factory.py stanza/stanza/models/pos/xpos_vocab_factory.py
 cd stanza
 ```
 
+The [`config.sh`](config/config.sh) is used to set environment variables (e.g., data path, word vector path, etc.) for the training and testing of stanza modules.
+
+The [`xpos_vocab_factory.py`](config/xpos_vocab_factory.py) is used to build XPOS vocabulary for our provided `UD_English-TEST` toy data. Compared with the file in downloaded Stanza repo, we only add its shorthand `en_test` to the file. You can temporarily ignore it. If you want to use another dataset other than `UD_English-TEST` after running this tutorial, you can add the shorthand in the same pattern. You can learn how we build this file [here]( https://github.com/stanfordnlp/stanza/blob/master/stanza/models/pos/build_xpos_vocab_factory.py).
+
 ## Train and Evaluate Processors
 
 Here we provide training tutorials for each processor. Model performance will be printed during training. As our provided data only contain several sentences for demonstration purpose, you should end up with 100% accuracy after training each processor.
