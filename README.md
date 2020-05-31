@@ -63,7 +63,7 @@ bash scripts/run_charlm.sh English-TEST backward --epochs 2 --cutoff 0 --batch_s
 ##### NER with CharLM
 
 ```sh
-bash scripts/run_ner.sh English-TEST --max_steps 1000 --word_emb_dim 5 --charlm --charlm_shorthand en_test --char_emb_dim 1024
+bash scripts/run_ner.sh English-TEST --max_steps 1000 --word_emb_dim 5 --charlm --charlm_shorthand en_test --char_hidden_dim 1024
 ```
 
 ## Load Trained Processors
