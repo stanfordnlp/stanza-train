@@ -8,11 +8,12 @@ Complemented with our [training documentation](https://stanfordnlp.github.io/sta
 
 ## Set up Environment
 
-You should first install `python 3` with the following dependencies: `numpy`, `protobuf`, `requests`, `tqdm`, `torch>=1.3.0`. Then you can set up your training environments by simply running each command below. 
+We only support `python 3`. You can set up your training environments by simply running each command below:
 
 ```sh
 git clone https://github.com/yuhui-zh15/stanza-train.git
 cd stanza-train
+pip install -r requirements.txt
 git clone https://github.com/stanfordnlp/stanza.git
 cp config/config.sh stanza/scripts/config.sh
 cp config/xpos_vocab_factory.py stanza/stanza/models/pos/xpos_vocab_factory.py
