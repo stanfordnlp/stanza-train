@@ -55,46 +55,44 @@ Like the `tokenize` processor, training the `mwt` processor requires UD data, in
 bash scripts/run_mwt.sh UD_English-TEST --num_epoch 2
 ```
 
-#### Lemma
+#### `lemma`
 
-The [`Lemma`](https://stanfordnlp.github.io/stanza/lemma.html) processor generates the word lemmas for all tokens in the corpus.
-
-Training `Lemma` processor requires UD data, where you can find our provided toy examples [here](data/udbase/UD_English-TEST). You can run the following command to train the `Lemma` processor:
+The [`lemma`](https://stanfordnlp.github.io/stanza/lemma.html) processor predicts lemmas for all words in an input sentence. Training the `lemma` processor requires data files in the `conllu` format. With the toy examples, you can train the `lemma` processor with the following command:
 
 ```sh
 bash scripts/run_lemma.sh UD_English-TEST --num_epoch 2
 ```
 
-#### POS
+#### `pos`
 
 
-The [`POS`](https://stanfordnlp.github.io/stanza/lemma.html) processor labels tokens with their [universal POS (UPOS) tags](https://universaldependencies.org/u/pos/), treebank-specific POS (XPOS) tags, and [universal morphological features (UFeats)](https://universaldependencies.org/u/feat/index.html).
+The [`pos`](https://stanfordnlp.github.io/stanza/lemma.html) processor annotates words with three types of syntactic information simultaneously: the [Universal POS (UPOS) tags](https://universaldependencies.org/u/pos/), and treebank-specific POS (XPOS) tags, and [universal morphological features (UFeats)](https://universaldependencies.org/u/feat/index.html).
 
-Training `POS` processor requires UD data and pretrained word vectors, where you can find our provided toy examples [here](data/udbase/UD_English-TEST) and [here](data/wordvec/word2vec/English), respectively. You can run the following command to train the `POS` processor:
+Training the `pos` processor usually requires UD data in the `conllu` format and pretrained word vectors. For demo purpose, we provide an example word vector file [here](data/wordvec/word2vec/English). With the toy data and word vector file, you can train the `pos` processor with:
 
 ```sh
 bash scripts/run_pos.sh UD_English-TEST --max_steps 500
 ```
 
-#### Depparse
+#### `depparse`
 
-The [`Depparse`](https://stanfordnlp.github.io/stanza/depparse.html) processor provides an accurate syntactic dependency parser.
-
-Training `Depparse` processor requires UD data and pretrained word vectors, where you can find our provided toy examples [here](data/udbase/UD_English-TEST) and [here](data/wordvec/word2vec/English), respectively. You can run the following command to train the `Depparse` processor:
+The [`depparse`](https://stanfordnlp.github.io/stanza/depparse.html) processor implements a dependency parser that predicts syntactic relations between words in a sentence. Training the `depparse` processor requires data files in the `conllu` format, and a pretrained word vector file. With the toy data and word vector file, you can train the `depparse` processor with:
 
 ```sh
 bash scripts/run_depparse.sh UD_English-TEST gold --max_steps 500
 ```
 
-#### NER
+Note that the `gold` parameter here tells the scripts to use the "gold" human-annotated POS tags in the training of the parser.
 
-The [`NER`](https://stanfordnlp.github.io/stanza/ner.html) processor recognizes named entities for all token spans in the corpus.
+#### `ner`
 
-Training `NER` processor requires BIO data and pretrained word vectors, where you can find our provided toy examples [here](data/nerbase/English-TEST) and [here](data/wordvec/word2vec/English), respectively. You can run the following command to train the `NER` processor:
+The [`ner`](https://stanfordnlp.github.io/stanza/ner.html) processor recognizes named entities in the input text. Training the `ner` processor requires column training data in either `BIO` or `BIOES` format. See [this wikipedia page](https://en.wikipedia.org/wiki/Inside%E2%80%93outside%E2%80%93beginning_(tagging)) for an introduction of the formats. We provide toy examples [here](data/nerbase/English-TEST) in the BIO format. For better performance a pretrained word vector file is also recommended. With the toy data and word vector file, you can train the `ner` processor with:
 
 ```sh
 bash scripts/run_ner.sh English-TEST --max_steps 500 --word_emb_dim 5
 ```
+
+Note that for demo purpose we are restricting the word vector dimension to be 5 with the `word_emb_dim` parameter. You should change it to match the dimension of your own word vectors.
 
 #### Contextualized NER 
 
