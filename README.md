@@ -123,6 +123,6 @@ Loading the trained processor only requires the path for the trained model. Here
 
 ## Contribute to the Model Zoo
 
-After training your processors, we welcome you to release your models and contribute your models to our model zoo! You can file up an issue [here](https://github.com/stanfordnlp/stanza/issues). Please clearly state your dataset and model performance, and briefly introduce why you think your model would benefit the whole community! We will integrate your models into our official repository after verification.
+After training your processors, we welcome you to release your models and contribute your models to our model zoo! You can file an issue [here](https://github.com/stanfordnlp/stanza/issues). Please clearly state your dataset, model performance and contact information, and please briefly introduce why you think your model would benefit the whole community! We will integrate your models into our official repository after verification.
 
 
