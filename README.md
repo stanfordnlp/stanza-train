@@ -1,14 +1,18 @@
 <div align="center"><img src="https://github.com/stanfordnlp/stanza/raw/dev/images/stanza-logo.png" height="100px"/></div>
 
-<h2 align="center">Stanza Training Tutorial</h2>
+<h2 align="center">Training Tutorials for the Stanza Python NLP Library</h2>
 
-This repo provides a tutorial for training [Stanza](https://github.com/stanfordnlp/stanza) --- The Stanford NLP Group's official Python NLP library. All neural modules in Stanza, including the tokenzier, the multi-word token (MWT) expander, the POS/morphological features tagger, the lemmatizer, the dependency parser, and the named entity tagger, can be trained with your own data. 
+This repo provides step-by-step tutorials for training models with [Stanza](https://github.com/stanfordnlp/stanza) - the official Python NLP library by the Stanford NLP Group. All neural modules in Stanza, including the tokenzier, the multi-word token (MWT) expander, the POS/morphological features tagger, the lemmatizer, the dependency parser, and the named entity tagger, can be trained with your own data.
 
-Complemented with our [training documentation](https://stanfordnlp.github.io/stanza/training.html), this repo provides runnable codes and toy data to make it much easier for users to get started with model training. With this repo, you can simply replace provided toy data with your own data to train your own modules and load them with Stanza! 
+This repo is meant to complement our [training documentation](https://stanfordnlp.github.io/stanza/training.html), by providing runnable scripts coupled with toy data that makes it much easier for users to get started with model training. To train models with your own data, you should be able to simply replace the provided toy data with your own data in the same format, and start using them with Stanza right after training.
 
-## Set up Environment
+## Environment Setup
 
+<<<<<<< HEAD
 We only support `python 3`. You can set up your training environments by simply running each command below:
+=======
+You should first install `python3` with the following dependencies: `numpy`, `protobuf`, `requests`, `tqdm`, `torch>=1.3.0`. Then you can set up your training environments by simply running each command below.
+>>>>>>> Edit README
 
 ```sh
 git clone https://github.com/yuhui-zh15/stanza-train.git
@@ -20,34 +24,40 @@ cp config/xpos_vocab_factory.py stanza/stanza/models/pos/xpos_vocab_factory.py
 cd stanza
 ```
 
+<<<<<<< HEAD
 The [`config.sh`](config/config.sh) is used to set environment variables (e.g., data path, word vector path, etc.) for the training and testing of stanza modules.
 
 The [`xpos_vocab_factory.py`](config/xpos_vocab_factory.py) is used to build XPOS vocabulary for our provided `UD_English-TEST` toy data. Compared with the file in downloaded Stanza repo, we only add its shorthand name (`en_test`) to the file. You can safely ignore it for now. If you want to use another dataset other than `UD_English-TEST` after running this tutorial, you can add the shorthand in the same pattern. In case you're curious, [here's how we built this file]( https://github.com/stanfordnlp/stanza/blob/master/stanza/models/pos/build_xpos_vocab_factory.py).
 
 
 ## Train and Evaluate Processors
+=======
+## Training and Evaluating Processors
+>>>>>>> Edit README
 
-Here we provide training tutorials for each processor. Model performance will be printed during training. As our provided data only contain several sentences for demonstration purpose, you should end up with 100% accuracy after training each processor.
+Here we provide instructions for training each processor currently supported by Stanza, using the toy data in this repo as example datasets. Model performance will be printed during training. As our provided toy data only contain several sentences for demonstration purpose, you should be able to get 100% accuracy at the end of training.
 
-#### Tokenize
+#### `tokenize`
 
-The [`Tokenize`](https://stanfordnlp.github.io/stanza/tokenize.html) processor tokenizes the text and performs sentence segmentation, so that downstream annotation can happen at the sentence level. 
+The [`tokenize`](https://stanfordnlp.github.io/stanza/tokenize.html) processor segments the text into tokens and sentences. All downstream processors which generate annotations at the token or sentence level depends on the output from this processor.
 
-Training `Tokenize` processor requires UD data, where you can find our provided toy examples [here](data/udbase/UD_English-TEST). You can run the following command to train the `Tokenize` processor:
+Training the `tokenize` processor currently requires the [Universal Dependencies](https://universaldependencies.org/) treebank data in both plain text and the `conllu` format, as you can find in our provided toy examples [here](data/udbase/UD_English-TEST). To train the `tokenize` processor with this toy data, run the following command:
 
 ```sh
 bash scripts/run_tokenize.sh UD_English-TEST --step 500
 ```
 
-#### MWT
+Note that since this toy data is very small in scale, we are restricting the training with a very small `step` parameter. To train on your own data, you can either set a larger `step` parameter, or use the default parameter value.
 
-The [`MWT`](https://stanfordnlp.github.io/stanza/mwt.html) Processor expands multi-word tokens (MWT) predicted by the [`Tokenize`](https://stanfordnlp.github.io/stanza/tokenize.html) Processor.
+#### `mwt`
 
-> Note: Only languages with [multi-word tokens (MWT)](https://universaldependencies.org/u/overview/tokenization.html) require MWTProcessor.
+The Universal Dependencies grammar defines syntatic relations between [syntactic words](https://universaldependencies.org/u/overview/tokenization.html), which, for many languages (e.g., French), are different from raw tokens as segmented from the text. For these languages, the [`mwt`](https://stanfordnlp.github.io/stanza/mwt.html) processor expands the multi-word tokens (MWT) recognized by the [`tokenize`](https://stanfordnlp.github.io/stanza/tokenize.html) processor into multiple syntactic words, paving the ways for downstream annotations.
 
-Training `MWT` processor requires UD data, where you can find our provided toy examples [here](data/udbase/UD_English-TEST). You can run the following command to train the `MWT` processor:
+> Note: The mwt processor is not needed and cannot be trained for languages that do not have [multi-word tokens (MWT)](https://universaldependencies.org/u/overview/tokenization.html), such as English or Chinese.
 
-> Note: Our provided toy data is in English, which do not contain MWT, you should replace provided data with data in languages that contain MWT (e.g., German, French, etc.) to train `MWT` processor.
+Like the `tokenize` processor, training the `mwt` processor requires UD data, in the format like our provided toy examples [here](data/udbase/UD_English-TEST). You can run the following command to train the `mwt` processor:
+
+> Note: Our provided toy data is in English, which do not contain MWT, you should replace provided data with data in languages that contain MWT (e.g., German, French, etc.) to train `mwt` processor.
 
 ```sh
 bash scripts/run_mwt.sh UD_English-TEST --num_epoch 2
