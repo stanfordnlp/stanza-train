@@ -121,5 +121,8 @@ Loading the trained processor only requires the path for the trained model. Here
 >>> nlp = stanza.Pipeline(lang='en', processors='tokenize', tokenize_model_path='saved_models/tokenize/en_test_tokenizer.pt')
 ```
 
+## Contribute to the Model Zoo
+
+After training your processors, we welcome you to release your models and contribute your models to our model zoo! You can file up an issue [here](https://github.com/stanfordnlp/stanza/issues). Please clearly state your dataset and model performance, and briefly introduce why you think your model would benefit the whole community! We will integrate your models into our official repository after verification.
 
 
