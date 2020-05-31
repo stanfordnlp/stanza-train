@@ -30,7 +30,7 @@ The [`Tokenize`](https://stanfordnlp.github.io/stanza/tokenize.html) processor t
 Training `Tokenize` processor requires UD data, where you can find our provided toy examples [here](data/udbase/UD_English-TEST). You can run the following command to train the `Tokenize` processor:
 
 ```sh
-bash scripts/run_tokenize.sh UD_English-TEST --step 1000
+bash scripts/run_tokenize.sh UD_English-TEST --step 500
 ```
 
 #### MWT
@@ -65,7 +65,7 @@ The [`POS`](https://stanfordnlp.github.io/stanza/lemma.html) processor labels to
 Training `POS` processor requires UD data and pretrained word vectors, where you can find our provided toy examples [here](data/udbase/UD_English-TEST) and [here](data/wordvec/word2vec/English), respectively. You can run the following command to train the `POS` processor:
 
 ```sh
-bash scripts/run_pos.sh UD_English-TEST --max_steps 1000
+bash scripts/run_pos.sh UD_English-TEST --max_steps 500
 ```
 
 #### Depparse
@@ -75,7 +75,7 @@ The [`Depparse`](https://stanfordnlp.github.io/stanza/depparse.html) processor p
 Training `Depparse` processor requires UD data and pretrained word vectors, where you can find our provided toy examples [here](data/udbase/UD_English-TEST) and [here](data/wordvec/word2vec/English), respectively. You can run the following command to train the `Depparse` processor:
 
 ```sh
-bash scripts/run_depparse.sh UD_English-TEST gold --max_steps 1000
+bash scripts/run_depparse.sh UD_English-TEST gold --max_steps 500
 ```
 
 #### NER
@@ -85,7 +85,7 @@ The [`NER`](https://stanfordnlp.github.io/stanza/ner.html) processor recognizes 
 Training `NER` processor requires BIO data and pretrained word vectors, where you can find our provided toy examples [here](data/nerbase/English-TEST) and [here](data/wordvec/word2vec/English), respectively. You can run the following command to train the `NER` processor:
 
 ```sh
-bash scripts/run_ner.sh English-TEST --max_steps 1000 --word_emb_dim 5
+bash scripts/run_ner.sh English-TEST --max_steps 500 --word_emb_dim 5
 ```
 
 #### Contextualized NER 
@@ -109,7 +109,7 @@ bash scripts/run_charlm.sh English-TEST backward --epochs 2 --cutoff 0 --batch_s
 Training contextualized `NER` processor not only requires BIO data and pretrained word vectors, where you can find our provided toy examples [here](data/nerbase/English-TEST) and [here](data/wordvec/word2vec/English), respectively, it also requires pretrained CharLMs, which can be obtained by previous training step and will be saved at `saved_models/charlm`. You can run the following command to train the contextualized `NER` processor:
 
 ```sh
-bash scripts/run_ner.sh English-TEST --max_steps 1000 --word_emb_dim 5 --charlm --charlm_shorthand en_test --char_hidden_dim 1024
+bash scripts/run_ner.sh English-TEST --max_steps 500 --word_emb_dim 5 --charlm --charlm_shorthand en_test --char_hidden_dim 1024
 ```
 
 ## Load Trained Processors
