@@ -91,7 +91,7 @@ bash scripts/run_ner.sh English-TEST --max_steps 1000 --word_emb_dim 5
 #### Contextualized NER 
 
 
-The [`NER`](https://stanfordnlp.github.io/stanza/ner.html) processor performance can be significantly improved by using contextualized string representation-based sequence tagger. To enable contextualized string representation, first you need to train bidirectional character-level language models (CharLM), and then adopt the pretrained CharLM to enhance string representation.
+The performance of [`NER`](https://stanfordnlp.github.io/stanza/ner.html) processor can be significantly improved by using contextualized string representation-based sequence tagger. To enable contextualized string representation, first you need to train bidirectional character-level language models (CharLM), and then adopt the pretrained CharLM to enhance string representation.
 
 
 ##### CharLM
