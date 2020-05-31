@@ -8,11 +8,7 @@ This repo is meant to complement our [training documentation](https://stanfordnl
 
 ## Environment Setup
 
-<<<<<<< HEAD
-We only support `python 3`. You can set up your training environments by simply running each command below:
-=======
-You should first install `python3` with the following dependencies: `numpy`, `protobuf`, `requests`, `tqdm`, `torch>=1.3.0`. Then you can set up your training environments by simply running each command below.
->>>>>>> Edit README
+We only support `python3`. You can set up your training environments by simply running each command below:
 
 ```sh
 git clone https://github.com/yuhui-zh15/stanza-train.git
@@ -24,16 +20,12 @@ cp config/xpos_vocab_factory.py stanza/stanza/models/pos/xpos_vocab_factory.py
 cd stanza
 ```
 
-<<<<<<< HEAD
 The [`config.sh`](config/config.sh) is used to set environment variables (e.g., data path, word vector path, etc.) for the training and testing of stanza modules.
 
 The [`xpos_vocab_factory.py`](config/xpos_vocab_factory.py) is used to build XPOS vocabulary for our provided `UD_English-TEST` toy data. Compared with the file in downloaded Stanza repo, we only add its shorthand name (`en_test`) to the file. You can safely ignore it for now. If you want to use another dataset other than `UD_English-TEST` after running this tutorial, you can add the shorthand in the same pattern. In case you're curious, [here's how we built this file]( https://github.com/stanfordnlp/stanza/blob/master/stanza/models/pos/build_xpos_vocab_factory.py).
 
 
-## Train and Evaluate Processors
-=======
 ## Training and Evaluating Processors
->>>>>>> Edit README
 
 Here we provide instructions for training each processor currently supported by Stanza, using the toy data in this repo as example datasets. Model performance will be printed during training. As our provided toy data only contain several sentences for demonstration purpose, you should be able to get 100% accuracy at the end of training.
 
