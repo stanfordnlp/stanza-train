@@ -29,7 +29,7 @@ The [`xpos_vocab_factory.py`](config/xpos_vocab_factory.py) is used to build XPO
 
 Here we provide instructions for training each processor currently supported by Stanza, using the toy data in this repo as example datasets. Model performance will be printed during training. As our provided toy data only contain several sentences for demonstration purpose, you should be able to get 100% accuracy at the end of training.
 
-#### `tokenize`
+### `tokenize`
 
 The [`tokenize`](https://stanfordnlp.github.io/stanza/tokenize.html) processor segments the text into tokens and sentences. All downstream processors which generate annotations at the token or sentence level depends on the output from this processor.
 
@@ -41,7 +41,7 @@ bash scripts/run_tokenize.sh UD_English-TEST --step 500
 
 Note that since this toy data is very small in scale, we are restricting the training with a very small `step` parameter. To train on your own data, you can either set a larger `step` parameter, or use the default parameter value.
 
-#### `mwt`
+### `mwt`
 
 The Universal Dependencies grammar defines syntatic relations between [syntactic words](https://universaldependencies.org/u/overview/tokenization.html), which, for many languages (e.g., French), are different from raw tokens as segmented from the text. For these languages, the [`mwt`](https://stanfordnlp.github.io/stanza/mwt.html) processor expands the multi-word tokens (MWT) recognized by the [`tokenize`](https://stanfordnlp.github.io/stanza/tokenize.html) processor into multiple syntactic words, paving the ways for downstream annotations.
 
@@ -55,7 +55,7 @@ bash scripts/run_mwt.sh UD_English-TEST --num_epoch 2
 
 > Note: Running the above command with the toy data will yield a message saying that zero training data can be found for MWT training. This is normal since MWT is not needed for English. The training should work when you replace the provided data with data in languages that support MWT (e.g., German, French, etc.).
 
-#### `lemma`
+### `lemma`
 
 The [`lemma`](https://stanfordnlp.github.io/stanza/lemma.html) processor predicts lemmas for all words in an input sentence. Training the `lemma` processor requires data files in the `conllu` format. With the toy examples, you can train the `lemma` processor with the following command:
 
@@ -63,8 +63,7 @@ The [`lemma`](https://stanfordnlp.github.io/stanza/lemma.html) processor predict
 bash scripts/run_lemma.sh UD_English-TEST --num_epoch 2
 ```
 
-#### `pos`
-
+### `pos`
 
 The [`pos`](https://stanfordnlp.github.io/stanza/lemma.html) processor annotates words with three types of syntactic information simultaneously: the [Universal POS (UPOS) tags](https://universaldependencies.org/u/pos/), and treebank-specific POS (XPOS) tags, and [universal morphological features (UFeats)](https://universaldependencies.org/u/feat/index.html).
 
@@ -74,7 +73,7 @@ Training the `pos` processor usually requires UD data in the `conllu` format and
 bash scripts/run_pos.sh UD_English-TEST --max_steps 500
 ```
 
-#### `depparse`
+### `depparse`
 
 The [`depparse`](https://stanfordnlp.github.io/stanza/depparse.html) processor implements a dependency parser that predicts syntactic relations between words in a sentence. Training the `depparse` processor requires data files in the `conllu` format, and a pretrained word vector file. With the toy data and word vector file, you can train the `depparse` processor with:
 
@@ -84,7 +83,7 @@ bash scripts/run_depparse.sh UD_English-TEST gold --max_steps 500
 
 Note that the `gold` parameter here tells the scripts to use the "gold" human-annotated POS tags in the training of the parser.
 
-#### `ner`
+### `ner`
 
 The [`ner`](https://stanfordnlp.github.io/stanza/ner.html) processor recognizes named entities in the input text. Training the `ner` processor requires column training data in either `BIO` or `BIOES` format. See [this wikipedia page](https://en.wikipedia.org/wiki/Inside%E2%80%93outside%E2%80%93beginning_(tagging)) for an introduction of the formats. We provide toy examples [here](data/nerbase/English-TEST) in the BIO format. For better performance a pretrained word vector file is also recommended. With the toy data and word vector file, you can train the `ner` processor with:
 
@@ -95,12 +94,12 @@ bash scripts/run_ner.sh English-TEST --max_steps 500 --word_emb_dim 5
 Note that for demo purpose we are restricting the word vector dimension to be 5 with the `word_emb_dim` parameter. You should change it to match the dimension of your own word vectors.
 
 
-#### Improving NER Performance with Contextualized Character Language Models
+### Improving NER Performance with Contextualized Character Language Models
 
 The performance of the [`ner`](https://stanfordnlp.github.io/stanza/ner.html) processor can be significantly improved by using contextualized string embeddings (i.e., a character-level language model), as was shown in [this COLING 2018 paper](https://www.aclweb.org/anthology/C18-1139/). To enable this in your NER model, you'll need to first train two character-level language models for your language (named as `charlm` module in Stanza), and then use these trained `charlm` models in your NER training.
 
 
-##### `charlm`
+#### `charlm`
 
 Training `charlm` requires a large amount of raw text, such as text from news articles or wikipedia pages, in plain text files. We provide toy data for training `charlm` [here](data/processed/charlm/English/test). With the toy data, you can run the following command to train two `charlm` models, one in the forward direction of the text and another in the backward direction, respectively:
 
@@ -113,7 +112,7 @@ Running these commands will result in two model files in the `saved_models/charl
 
 > Note: For details on why two models are needed and how they are used in the NER tagger, please refer to [this COLING 2018 paper](https://www.aclweb.org/anthology/C18-1139/).
 
-##### Training contextualized `ner` models with pretrained `charlm`
+#### Training contextualized `ner` models with pretrained `charlm`
 
 Training contextualized `ner` models requires BIO-format data, pretrained word vectors, and the pretrained `charlm` models obtained in the last step. You can run the following command to train the `ner` processor:
 
