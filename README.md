@@ -8,21 +8,26 @@ This repo is meant to complement our [training documentation](https://stanfordnl
 
 ## Environment Setup
 
-We only support `python3`. You can set up your training environments by simply running each command below:
+Stanza only supports `python3`. You can install all dependencies needed by training Stanza models with:
+```bash
+pip install -r requirements.txt
+```
 
-```sh
+Next, set up the folders and scripts needed for training with:
+
+```bash
 git clone https://github.com/yuhui-zh15/stanza-train.git
 cd stanza-train
-pip install -r requirements.txt
+
 git clone https://github.com/stanfordnlp/stanza.git
 cp config/config.sh stanza/scripts/config.sh
 cp config/xpos_vocab_factory.py stanza/stanza/models/pos/xpos_vocab_factory.py
 cd stanza
 ```
 
-The [`config.sh`](config/config.sh) is used to set environment variables (e.g., data path, word vector path, etc.) for the training and testing of stanza modules.
+The [`config.sh`](config/config.sh) script is used to set environment variables (e.g., data path, word vector path, etc.) needed by training and testing Stanza models.
 
-The [`xpos_vocab_factory.py`](config/xpos_vocab_factory.py) is used to build XPOS vocabulary for our provided `UD_English-TEST` toy data. Compared with the file in downloaded Stanza repo, we only add its shorthand name (`en_test`) to the file. You can safely ignore it for now. If you want to use another dataset other than `UD_English-TEST` after running this tutorial, you can add the shorthand in the same pattern. In case you're curious, [here's how we built this file]( https://github.com/stanfordnlp/stanza/blob/master/stanza/models/pos/build_xpos_vocab_factory.py).
+The [`xpos_vocab_factory.py`](config/xpos_vocab_factory.py) script is used to build XPOS vocabulary file for our provided `UD_English-TEST` toy treebank. Compared with the original file in the downloaded Stanza repo, we only add the shorthand name of the toy treebank (`en_test`) to the script, so that it can be recognized during training. If you want to use another dataset other than `UD_English-TEST` after running this tutorial, you can add the shorthand of your treebank in the same way. In case you're curious, [here's how we built this file]( https://github.com/stanfordnlp/stanza/blob/master/stanza/models/pos/build_xpos_vocab_factory.py).
 
 
 ## Training and Evaluating Processors
@@ -134,4 +139,4 @@ Initializing a processor with your own trained model only requires the path for 
 
 ## Contributing Your Models to the Model Zoo
 
-After training your own models, we welcome you to contribute your models to be used by the community! To do this, you can start by creating a [GitHub issue](https://github.com/stanfordnlp/stanza/issues). Please help us understand your model by clearly describing your dataset, model performance, your contact information, and why you think your model would benefit the whole community. We will integrate your models into our official repository once we are able to verify its quality and usability.
+After training your own models, we welcome you to contribute your models so that it can be used by the community. To do this, you can start by creating a [GitHub issue](https://github.com/stanfordnlp/stanza/issues). Please help us understand your model by clearly describing your dataset, model performance, your contact information, and why you think your model would benefit the whole community. We will integrate your models into our official repository once we are able to verify its quality and usability.
