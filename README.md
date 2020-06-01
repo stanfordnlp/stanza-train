@@ -2,7 +2,7 @@
 
 <h2 align="center">Training Tutorials for the Stanza Python NLP Library</h2>
 
-This repo provides step-by-step tutorials for training models with [Stanza](https://github.com/stanfordnlp/stanza) - the official Python NLP library by the Stanford NLP Group. All neural modules in Stanza, including the tokenzier, the multi-word token (MWT) expander, the POS/morphological features tagger, the lemmatizer, the dependency parser, and the named entity tagger, can be trained with your own data.
+This repo provides step-by-step tutorials for training models with [Stanza](https://github.com/stanfordnlp/stanza) - the official Python NLP library by the Stanford NLP Group. All neural processors in Stanza, including the tokenzier, the multi-word token (MWT) expander, the POS/morphological features tagger, the lemmatizer, the dependency parser, and the named entity tagger, can be trained with your own data.
 
 This repo is meant to complement our [training documentation](https://stanfordnlp.github.io/stanza/training.html), by providing runnable scripts coupled with toy data that makes it much easier for users to get started with model training. To train models with your own data, you should be able to simply replace the provided toy data with your own data in the same format, and start using them with Stanza right after training.
 
@@ -94,41 +94,45 @@ bash scripts/run_ner.sh English-TEST --max_steps 500 --word_emb_dim 5
 
 Note that for demo purpose we are restricting the word vector dimension to be 5 with the `word_emb_dim` parameter. You should change it to match the dimension of your own word vectors.
 
-#### Contextualized NER 
+
+#### Improving NER Performance with Contextualized Character Language Models
+
+The performance of the [`ner`](https://stanfordnlp.github.io/stanza/ner.html) processor can be significantly improved by using contextualized string embeddings (i.e., a character-level language model), as was shown in [this COLING 2018 paper](https://www.aclweb.org/anthology/C18-1139/). To enable this in your NER model, you'll need to first train two character-level language models for your language (named as `charlm` module in Stanza), and then use these trained `charlm` models in your NER training.
 
 
-The performance of [`NER`](https://stanfordnlp.github.io/stanza/ner.html) processor can be significantly improved by using contextualized string representation-based sequence tagger. To enable contextualized string representation, first you need to train bidirectional character-level language models (CharLM), and then adopt the pretrained CharLM to enhance string representation.
+##### `charlm`
 
-
-##### CharLM
-
-
-Training `CharLM` requires a large amount of raw text, where you can find our provided toy examples [here](data/processed/charlm/English/test). You can run the following command to train the forward and backward `CharLM`, respectively:
+Training `charlm` requires a large amount of raw text, such as text from news articles or wikipedia pages, in plain text files. We provide toy data for training `charlm` [here](data/processed/charlm/English/test). With the toy data, you can run the following command to train two `charlm` models, one in the forward direction of the text and another in the backward direction, respectively:
 
 ```sh
 bash scripts/run_charlm.sh English-TEST forward --epochs 2 --cutoff 0 --batch_size 2
 bash scripts/run_charlm.sh English-TEST backward --epochs 2 --cutoff 0 --batch_size 2
 ```
 
-##### NER with CharLM
+Running these commands will result in two model files in the `saved_models/charlm` directory, with the prefix `en_test`.
 
-Training contextualized `NER` processor not only requires BIO data and pretrained word vectors, where you can find our provided toy examples [here](data/nerbase/English-TEST) and [here](data/wordvec/word2vec/English), respectively, it also requires pretrained CharLMs, which can be obtained by previous training step and will be saved at `saved_models/charlm`. You can run the following command to train the contextualized `NER` processor:
+> Note: For details on why two models are needed and how they are used in the NER tagger, please refer to [this COLING 2018 paper](https://www.aclweb.org/anthology/C18-1139/).
+
+##### Training contextualized `ner` models with pretrained `charlm`
+
+Training contextualized `ner` models requires BIO-format data, pretrained word vectors, and the pretrained `charlm` models obtained in the last step. You can run the following command to train the `ner` processor:
 
 ```sh
 bash scripts/run_ner.sh English-TEST --max_steps 500 --word_emb_dim 5 --charlm --charlm_shorthand en_test --char_hidden_dim 1024
 ```
 
-## Load Trained Processors
+Note that the `charlm_shorthand` here instructs the training script to look for the character language model files with the prefix of `en_test`.
 
-Loading the trained processor only requires the path for the trained model. Here we provide an example to load trained `Tokenize` processor:
+
+## Initializing Processors with Trained Models
+
+Initializing a processor with your own trained model only requires the path for the model file. Here we provide an example to initialize the `tokenize` processor with a model file saved at `saved_models/tokenize/en_test_tokenizer.pt`:
 
 ```python
 >>> import stanza
 >>> nlp = stanza.Pipeline(lang='en', processors='tokenize', tokenize_model_path='saved_models/tokenize/en_test_tokenizer.pt')
 ```
 
-## Contribute to the Model Zoo
+## Contributing Your Models to the Model Zoo
 
-After training your processors, we welcome you to release your models and contribute your models to our model zoo! You can file an issue [here](https://github.com/stanfordnlp/stanza/issues). Please clearly state your dataset, model performance and contact information, and please briefly introduce why you think your model would benefit the whole community! We will integrate your models into our official repository after verification.
-
-
+After training your own models, we welcome you to contribute your models to be used by the community! To do this, you can start by creating a [GitHub issue](https://github.com/stanfordnlp/stanza/issues). Please help us understand your model by clearly describing your dataset, model performance, your contact information, and why you think your model would benefit the whole community. We will integrate your models into our official repository once we are able to verify its quality and usability.
