@@ -16,7 +16,7 @@ pip install -r requirements.txt
 Next, set up the folders and scripts needed for training with:
 
 ```bash
-git clone https://github.com/yuhui-zh15/stanza-train.git
+git clone https://github.com/stanfordnlp/stanza-train.git
 cd stanza-train
 
 git clone https://github.com/stanfordnlp/stanza.git
