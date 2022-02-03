@@ -148,3 +148,11 @@ dmypy.json
 cython_debug/
 
 
+# ignore the version of stanza we download into the training repo
+stanza/
+
+# ignore the artifacts produced by preparing training data
+data/processed/mwt/en_test*json
+data/processed/ner/en_sample*json
+data/processed/tokenize/en_test*json
+data/processed/tokenize/en_test*txt
