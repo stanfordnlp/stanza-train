@@ -25,6 +25,7 @@ git clone https://github.com/stanfordnlp/stanza.git
 cp config/config.sh stanza/scripts/config.sh
 cp config/xpos_vocab_factory.py stanza/stanza/models/pos/xpos_vocab_factory.py
 cd stanza
+source scripts/config.sh
 ```
 
 The [`config.sh`](config/config.sh) script is used to set environment variables (e.g., data path, word vector path, etc.) needed by training and testing Stanza models.
@@ -43,7 +44,8 @@ The [`tokenize`](https://stanfordnlp.github.io/stanza/tokenize.html) processor s
 Training the `tokenize` processor currently requires the [Universal Dependencies](https://universaldependencies.org/) treebank data in both plain text and the `conllu` format, as you can find in our provided toy examples [here](data/udbase/UD_English-TEST). To train the `tokenize` processor with this toy data, run the following command:
 
 ```sh
-bash scripts/run_tokenize.sh UD_English-TEST --step 500
+python3 -m stanza.utils.datasets.prepare_tokenizer_treebank UD_English-TEST
+python3 -m stanza.utils.training.run_tokenizer UD_English-TEST --step 500
 ```
 
 Note that since this toy data is very small in scale, we are restricting the training with a very small `step` parameter. To train on your own data, you can either set a larger `step` parameter, or use the default parameter value.
@@ -57,7 +59,8 @@ The Universal Dependencies grammar defines syntatic relations between [syntactic
 Like the `tokenize` processor, training the `mwt` processor requires UD data, in the format like our provided toy examples [here](data/udbase/UD_English-TEST). You can run the following command to train the `mwt` processor:
 
 ```sh
-bash scripts/run_mwt.sh UD_English-TEST --num_epoch 2
+python3 -m stanza.utils.datasets.prepare_mwt_treebank UD_English-TEST
+python3 -m stanza.utils.training.run_mwt UD_English-TEST --num_epoch 2
 ```
 
 > Note: Running the above command with the toy data will yield a message saying that zero training data can be found for MWT training. This is normal since MWT is not needed for English. The training should work when you replace the provided data with data in languages that support MWT (e.g., German, French, etc.).
@@ -67,7 +70,8 @@ bash scripts/run_mwt.sh UD_English-TEST --num_epoch 2
 The [`lemma`](https://stanfordnlp.github.io/stanza/lemma.html) processor predicts lemmas for all words in an input sentence. Training the `lemma` processor requires data files in the `conllu` format. With the toy examples, you can train the `lemma` processor with the following command:
 
 ```sh
-bash scripts/run_lemma.sh UD_English-TEST --num_epoch 2
+python3 -m stanza.utils.datasets.prepare_lemma_treebank UD_English-TEST
+python3 -m stanza.utils.training.run_lemma UD_English-TEST --num_epoch 2
 ```
 
 ### `pos`
@@ -77,7 +81,8 @@ The [`pos`](https://stanfordnlp.github.io/stanza/lemma.html) processor annotates
 Training the `pos` processor usually requires UD data in the `conllu` format and pretrained word vectors. For demo purpose, we provide an example word vector file [here](data/wordvec/word2vec/English). With the toy data and word vector file, you can train the `pos` processor with:
 
 ```sh
-bash scripts/run_pos.sh UD_English-TEST --max_steps 500
+python3 -m stanza.utils.datasets.prepare_pos_treebank UD_English-TEST
+python3 -m stanza.utils.training.run_pos UD_English-TEST --max_steps 500
 ```
 
 ### `depparse`
@@ -85,7 +90,8 @@ bash scripts/run_pos.sh UD_English-TEST --max_steps 500
 The [`depparse`](https://stanfordnlp.github.io/stanza/depparse.html) processor implements a dependency parser that predicts syntactic relations between words in a sentence. Training the `depparse` processor requires data files in the `conllu` format, and a pretrained word vector file. With the toy data and word vector file, you can train the `depparse` processor with:
 
 ```sh
-bash scripts/run_depparse.sh UD_English-TEST gold --max_steps 500
+python3 -m stanza.utils.datasets.prepare_depparse_treebank UD_English-TEST
+python3 -m stanza.utils.training.run_depparse UD_English-TEST --max_steps 500
 ```
 
 Note that the `gold` parameter here tells the scripts to use the "gold" human-annotated POS tags in the training of the parser.
