@@ -101,7 +101,7 @@ Note that the `gold` parameter here tells the scripts to use the "gold" human-an
 The [`ner`](https://stanfordnlp.github.io/stanza/ner.html) processor recognizes named entities in the input text. Training the `ner` processor requires column training data in either `BIO` or `BIOES` format. See [this wikipedia page](https://en.wikipedia.org/wiki/Inside%E2%80%93outside%E2%80%93beginning_(tagging)) for an introduction of the formats. We provide toy examples [here](data/nerbase/English-TEST) in the BIO format. For better performance a pretrained word vector file is also recommended. With the toy data and word vector file, you can train the `ner` processor with:
 
 ```sh
-bash scripts/run_ner.sh English-TEST --max_steps 500 --word_emb_dim 5
+python3 -m stanza.utils.training.run_ner en_sample --max_steps 500 --word_emb_dim 5
 ```
 
 Note that for demo purpose we are restricting the word vector dimension to be 5 with the `word_emb_dim` parameter. You should change it to match the dimension of your own word vectors.
@@ -117,6 +117,7 @@ The performance of the [`ner`](https://stanfordnlp.github.io/stanza/ner.html) pr
 Training `charlm` requires a large amount of raw text, such as text from news articles or wikipedia pages, in plain text files. We provide toy data for training `charlm` [here](data/processed/charlm/English/test). With the toy data, you can run the following command to train two `charlm` models, one in the forward direction of the text and another in the backward direction, respectively:
 
 ```sh
+NOTE: This is possibly out of date
 bash scripts/run_charlm.sh English-TEST forward --epochs 2 --cutoff 0 --batch_size 2
 bash scripts/run_charlm.sh English-TEST backward --epochs 2 --cutoff 0 --batch_size 2
 ```
@@ -130,10 +131,10 @@ Running these commands will result in two model files in the `saved_models/charl
 Training contextualized `ner` models requires BIO-format data, pretrained word vectors, and the pretrained `charlm` models obtained in the last step. You can run the following command to train the `ner` processor:
 
 ```sh
-bash scripts/run_ner.sh English-TEST --max_steps 500 --word_emb_dim 5 --charlm --charlm_shorthand en_test --char_hidden_dim 1024
+python3 -m stanza.utils.training.run_ner en_sample --max_steps 500 --word_emb_dim 5 --charlm en_test --char_hidden_dim 1024
 ```
 
-Note that the `charlm_shorthand` here instructs the training script to look for the character language model files with the prefix of `en_test`.
+Note that the `charlm` here instructs the training script to look for the character language model files with the prefix of `en_test`.
 
 
 ## Initializing Processors with Trained Models
