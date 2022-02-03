@@ -18,10 +18,10 @@ pip install -r requirements.txt
 Next, set up the folders and scripts needed for training with:
 
 ```bash
-git clone https://github.com/stanfordnlp/stanza-train.git
+git clone git@github.com:stanfordnlp/stanza-train.git
 cd stanza-train
 
-git clone https://github.com/stanfordnlp/stanza.git
+git clone git@github.com:stanfordnlp/stanza.git
 cp config/config.sh stanza/scripts/config.sh
 cp config/xpos_vocab_factory.py stanza/stanza/models/pos/xpos_vocab_factory.py
 cd stanza
