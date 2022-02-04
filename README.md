@@ -118,9 +118,9 @@ The performance of the [`ner`](https://stanfordnlp.github.io/stanza/ner.html) pr
 Training `charlm` requires a large amount of raw text, such as text from news articles or wikipedia pages, in plain text files. We provide toy data for training `charlm` [here](data/processed/charlm/English/test). With the toy data, you can run the following command to train two `charlm` models, one in the forward direction of the text and another in the backward direction, respectively:
 
 ```sh
-# NOTE: This is possibly out of date - you may need to update python -> python3, for example
-bash scripts/run_charlm.sh English-TEST forward --epochs 2 --cutoff 0 --batch_size 2
-bash scripts/run_charlm.sh English-TEST backward --epochs 2 --cutoff 0 --batch_size 2
+# NOTE: you will either need the dev branch of stanza or a stanza release greater than 1.3.0
+python3 -m stanza.utils.training.run_charlm en_TEST --forward   --epochs 2 --cutoff 0 --batch_size 2
+python3 -m stanza.utils.training.run_charlm en_TEST --backward  --epochs 2 --cutoff 0 --batch_size 2
 ```
 
 Running these commands will result in two model files in the `saved_models/charlm` directory, with the prefix `en_test`.
@@ -132,7 +132,8 @@ Running these commands will result in two model files in the `saved_models/charl
 Training contextualized `ner` models requires BIO-format data, pretrained word vectors, and the pretrained `charlm` models obtained in the last step. You can run the following command to train the `ner` processor:
 
 ```sh
-python3 -m stanza.utils.training.run_ner en_sample --max_steps 500 --word_emb_dim 5 --charlm en_test
+# NOTE: you will either need the dev branch of stanza or a stanza release greater than 1.3.0
+python3 -m stanza.utils.training.run_ner en_sample --max_steps 500 --word_emb_dim 5 --charlm test
 ```
 
 Note that the `charlm` here instructs the training script to look for the character language model files with the prefix of `en_test`.
