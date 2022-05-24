@@ -6,11 +6,13 @@ This repo provides step-by-step tutorials for training models with [Stanza](http
 
 This repo is meant to complement our [training documentation](https://stanfordnlp.github.io/stanza/training.html), by providing runnable scripts coupled with toy data that makes it much easier for users to get started with model training. To train models with your own data, you should be able to simply replace the provided toy data with your own data in the same format, and start using them with Stanza right after training.
 
-> Warning: This repo is fully tested on Linux. Due to syntax differences between macOS and Linux (e.g., the `declare -A` in the `scripts/treebank_to_shorthand.sh` is not supported by macOS), you need to rewrite some files to run on macOS.
+> Warning: This repo is fully tested on Linux. Due to syntax differences between macOS and Linux (e.g., the `declare -A` in the `scripts/treebank_to_shorthand.sh` is not supported by macOS), you need to rewrite some files to run on macOS.  The command lines given here will not work on Windows.
 
 This repo is designed for and tested on stanza 1.4.0.  Earlier versions will not fully work with these commands.
 
 ## Environment Setup
+
+Run the following commands at the command line.
 
 Stanza only supports `python3`. You can install all dependencies needed by training Stanza models with:
 ```bash
