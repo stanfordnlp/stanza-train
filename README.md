@@ -10,6 +10,14 @@ This repo is meant to complement our [training documentation](https://stanfordnl
 
 This repo is designed for and tested on stanza 1.4.0.  Earlier versions will not fully work with these commands.
 
+### Windows
+
+To reiterate, this is only tested on Linux.  In order to run on
+Windows, there is a `source scripts/config.sh` line in the initial
+setup below.  Theoretically, if you manually set those variables in
+the shell, or if you add those variables to the environment using the
+control panel, the rest of the scripts might work.
+
 ## Environment Setup
 
 Run the following commands at the command line.
